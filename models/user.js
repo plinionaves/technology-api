@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataType) => {
 
-    const Technology = sequelize.define('Technology', {
+    const User = sequelize.define('User', {
         id: {
             type: DataType.INTEGER,
             primaryKey: true,
@@ -13,18 +13,29 @@ module.exports = (sequelize, DataType) => {
                 notEmpty: true
             }
         },
-        note: {
+        password: {
             type: DataType.STRING,
-            defaultValue: null
+            allowNull: false,
+            validate: {
+                notEmpty: true
+            }
+        },
+        email: {
+            type: DataType.STRING,
+            unique: true,
+            allowNull: false,
+            validate: {
+                notEmpty: true
+            }
         }
     }, {
         classMethods: {
             associate: (models) => {
-                Technology.belongsTo(models.User);
+                User.hasMany(models.Technology);
             }
         }
     });
 
-    return Technology;
+    return User;
 
 };
