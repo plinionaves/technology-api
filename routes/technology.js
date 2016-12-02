@@ -62,8 +62,8 @@ module.exports = app => {
                 });
         })
         .put((req, res) => {
-            Technology.put(req.body, {where: req.params})
-                .then(result => res.status(204).json({
+            Technology.update(req.body, {where: req.params})
+                .then(result => res.json({
                     status: true,
                     data: result
                 }))
