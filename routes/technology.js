@@ -11,11 +11,6 @@ module.exports = app => {
 
     app.route('/technology')
 
-        .all((req, res, next) => {
-            if (req.body) delete req.body.id;
-            next();
-        })
-
         .get((req, res) => {
             Technology.findAll({})
                 .then(technologies => res.json({
@@ -45,10 +40,6 @@ module.exports = app => {
         });
 
     app.route('/technology/:id')
-        .all((req, res, next) => {
-           if (req.body) delete req.body.id;
-            next();
-        })
         .get((req, res) => {
             Technology.findOne({where: req. params})
                 .then(technology => {
