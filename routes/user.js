@@ -29,7 +29,8 @@ module.exports = app => {
     });
 
     app.delete("/user/:id", (req, res) => {
-        User.then(result => res.json({
+        User.destroy({where: req.params})
+        .then(result => res.json({
             status: true,
             data: result
         }))
