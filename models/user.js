@@ -1,3 +1,5 @@
+import bcrypt from 'bcrypt';
+
 module.exports = (sequelize, DataType) => {
 
     const User = sequelize.define('User', {
@@ -29,9 +31,18 @@ module.exports = (sequelize, DataType) => {
             }
         }
     }, {
+        hooks: {
+            beforeCreate: user => {
+                const salt = bcrypt.genSaltSync();
+                user.password = bcrypt.hashSync(user.password, salt);
+            }
+        },
         classMethods: {
             associate: (models) => {
                 User.hasMany(models.Technology);
+            },
+            isPassword: (encodedPassword, password) => {
+                return bcrypt.compareSync(password, encodedPassword);
             }
         }
     });

@@ -11,8 +11,12 @@ module.exports = app => {
 
     app.route('/technology')
 
+        .all(app.auth.authenticate())
+
         .get((req, res) => {
-            Technology.findAll({})
+            Technology.findAll({
+                where: {user_id: req.user.id}
+            })
                 .then(technologies => res.json({
                     status: true,
                     data: technologies
@@ -26,6 +30,7 @@ module.exports = app => {
         })
 
         .post((req, res) => {
+            req.body.user_id = req.user.id;
             Technology.create(req.body)
                 .then(technology => res.json({
                     status: true,
@@ -40,8 +45,14 @@ module.exports = app => {
         });
 
     app.route('/technology/:id')
+
+        .all(app.auth.authenticate())
+
         .get((req, res) => {
-            Technology.findOne({where: req. params})
+            Technology.findOne({where: {
+                id: req.params.id,
+                user_id: req.user.id
+            }})
                 .then(technology => {
                     if (technology) {
                         res.json({
@@ -62,7 +73,10 @@ module.exports = app => {
                 });
         })
         .put((req, res) => {
-            Technology.update(req.body, {where: req.params})
+            Technology.update(req.body, {where: {
+                id: req.params.id,
+                user_id: req.user.id
+            }})
                 .then(result => res.json({
                     status: true,
                     data: result
@@ -75,7 +89,10 @@ module.exports = app => {
                 });
         })
         .delete((req, res) => {
-            Technology.destroy({where: req.params})
+            Technology.destroy({where: {
+                id: req.params.id,
+                user_id: req.user.id
+            }})
                 .then(result => res.json({
                     status: true,
                     data: result
