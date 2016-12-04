@@ -30,16 +30,16 @@ module.exports = app => {
 
     app.delete("/user/:id", (req, res) => {
         User.destroy({where: req.params})
-        .then(result => res.json({
-            status: true,
-            data: result
-        }))
-        .catch(error => {
-            res.status(412).json({
-                status: false,
-                message: error.message || error
-            })
-        });
+            .then(result => res.json({
+                status: true,
+                data: result
+            }))
+            .catch(error => {
+                res.status(412).json({
+                    status: false,
+                    message: error.message || error
+                })
+            });
     });
 
     app.post("/user", (req, res) => {
