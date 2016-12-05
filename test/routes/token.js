@@ -24,13 +24,13 @@ describe('Routes: Token', () => {
                     })
                     .expect(200)
                     .end((err, res) => {
-                        //expect(res.body).to.include.keys('token');
+                        expect(res.body).to.include.keys('token');
                         done(err);
                     });
             });
         });
 
-        /*describe('status 401', () => {
+        describe('status 401', () => {
 
             it('throws error when password is incorrect', done => {
                 request.post('/token')
@@ -64,7 +64,7 @@ describe('Routes: Token', () => {
                     });
             });
 
-        });*/
+        });
 
     });
 
