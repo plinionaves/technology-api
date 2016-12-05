@@ -4,7 +4,7 @@
   "description": "API para cadastro de tecnologias",
   "main": "index.js",
   "scripts": {
-    "start": "npm run apidoc && babel-node index.js",
+    "start": "npm run apidoc && npm run clusters",
     "clusters": "babel-node clusters.js",
     "apidoc": "apidoc -i routes/ -o public/apidoc",
     "test": "SET NODE_ENV=test && mocha test/**/*.js"
