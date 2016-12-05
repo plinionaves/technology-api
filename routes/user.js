@@ -4,6 +4,8 @@ module.exports = app => {
 
     app.route('/user')
 
+        .all(app.auth.authenticate())
+
         .get((req, res) => {
             User.findById(req.user.id, {
                 attributes: ["id", "name", "email"]
@@ -44,16 +46,17 @@ module.exports = app => {
             });
         });
 
-    app.post("/user", (req, res) => {
-        User.then(user => res.json({
-            status: true,
-            data: user
-        }))
-        .catch(error => {
-            res.status(412).json({
-                status: false,
-                message: error.message || error
-            })
-        });
+    app.post("/users", (req, res) => {
+        User.create(req.body)
+            .then(user => res.json({
+                status: true,
+                data: user
+            }))
+            .catch(error => {
+                res.status(412).json({
+                    status: false,
+                    message: error.message || error
+                })
+            });
     });
 };
