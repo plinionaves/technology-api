@@ -4,7 +4,8 @@
   "description": "API para cadastro de tecnologias",
   "main": "index.js",
   "scripts": {
-    "start": "babel-node index.js"
+    "start": "babel-node index.js",
+    "test": "SET NODE_ENV=test && mocha test/**/*.js"
   },
   "author": "Plínio Naves <pliniopjn@hotmail.com>",
   "dependencies": {
@@ -19,5 +20,11 @@
     "passport-jwt": "^2.2.1",
     "sequelize": "^3.27.0",
     "sqlite3": "^3.1.8"
+  },
+  "devDependencies": {
+    "babel-register": "^6.18.0",
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0",
+    "supertest": "^2.0.1"
   }
 }
